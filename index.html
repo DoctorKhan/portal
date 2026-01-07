@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Rez Khan | Links</title>
+    <!-- Lucide Icons for a professional touch -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #020617;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(51, 65, 85, 0.5);
+            --accent-color: #38bdf8;
+            --yt-color: #ef4444; 
+            --ig-color: #e879f9; 
+            --x-color: #ffffff;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .profile-pic-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Fallback initials if image is missing */
+        .profile-pic-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            z-index: -1;
+            background: #1e293b;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.025em;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            text-align: center;
+            line-height: 1.5;
+            max-width: 280px;
+        }
+
+        .section-label {
+            width: 100%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin: 25px 0 12px 10px;
+            opacity: 0.8;
+        }
+
+        .links-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-card {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            background-color: rgba(51, 65, 85, 0.8);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-color);
+        }
+
+        .icon-yt { color: var(--yt-color); }
+        .icon-ig { color: var(--ig-color); }
+        .icon-x { color: var(--x-color); }
+
+        .chevron {
+            width: 16px;
+            height: 16px;
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding-top: 60px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="profile-pic-container">
+            <!-- Fetching image directly from GitHub -->
+            <img src="https://github.com/DoctorKhan.png" alt="Dr. Rez Khan" class="profile-pic" onerror="this.style.display='none'">
+            <div class="profile-pic-fallback">RK</div>
+        </div>
+        
+        <h1>Dr. Rez Khan</h1>
+        <p class="tagline">Neurotech &bull; Cybersecurity &bull; Elata</p>
+
+        <div class="links-container">
+            <!-- Writing Section -->
+            <div class="section-label">Newsletter</div>
+            <a href="https://drrezkhan.substack.com" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="book-open" class="icon"></i>
+                    <span>The Khan Dispatch</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <!-- Video Content -->
+            <div class="section-label">Video Channels</div>
+            <a href="https://youtube.com/@DrRezKhanTech" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="cpu" class="icon icon-yt"></i>
+                    <span>Technical & Neurotech</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <a href="https://youtube.com/@DrRezKhanMindful" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="sparkles" class="icon icon-yt"></i>
+                    <span>Mindfulness & Flow</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <!-- Professional Section -->
+            <div class="section-label">Professional</div>
+            <a href="https://www.linkedin.com/in/rez-khan/" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="linkedin" class="icon"></i>
+                    <span>LinkedIn Profile</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <a href="https://github.com/DoctorKhan" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="github" class="icon"></i>
+                    <span>GitHub Codebase</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <a href="https://x.com/RezKKhan" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="twitter" class="icon icon-x"></i>
+                    <span>X / Twitter</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <!-- Contact Section -->
+            <div class="section-label">Connect</div>
+            <a href="https://instagram.com/drrezkhan" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="instagram" class="icon icon-ig"></i>
+                    <span>Get in Touch (Instagram DM)</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+        </div>
+
+        <div class="footer">
+            &copy; 2024 Dr. Rez Khan
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
