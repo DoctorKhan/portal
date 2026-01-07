@@ -170,6 +170,32 @@
             opacity: 0.5;
         }
 
+        .qr-section {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .qr-code {
+            width: 140px;
+            height: 140px;
+            border: 4px solid white;
+            border-radius: 12px;
+        }
+
+        .qr-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
         .footer {
             margin-top: auto;
             padding-top: 60px;
@@ -257,6 +283,12 @@
                 </div>
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
+        </div>
+
+        <!-- QR Code Sharing Section -->
+        <div class="qr-section">
+            <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://doctorkhan.github.io/portal/&color=38bdf8&bgcolor=020617" alt="QR Code for dr. rez khan portal">
+            <p class="qr-text">Scan to share portal</p>
         </div>
 
         <div class="footer">
