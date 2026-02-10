@@ -148,6 +148,45 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
+        .featured-card {
+            border-color: rgba(56, 189, 248, 0.6);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.92));
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .featured-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 14px 28px -14px rgba(56, 189, 248, 0.8);
+        }
+
+        .featured-main {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .featured-title {
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .featured-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .featured-cta {
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
         .link-content {
             display: flex;
             align-items: center;
@@ -177,24 +216,53 @@
             flex-direction: column;
             align-items: center;
             gap: 12px;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px dashed var(--border-color);
+            width: 100%;
+            padding: 22px 20px 18px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.2), transparent 60%),
+                linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.9));
+            border-radius: 22px;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow:
+                0 20px 40px -30px rgba(56, 189, 248, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-section::before {
+            content: "Scan Me";
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #0f172a;
+            background: var(--accent-color);
+            border-radius: 999px;
+            padding: 6px 9px;
         }
 
         .qr-code {
-            width: 140px;
-            height: 140px;
-            border: 4px solid white;
-            border-radius: 12px;
+            width: 164px;
+            height: 164px;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            border-radius: 18px;
+            box-shadow:
+                0 14px 24px -16px rgba(0, 0, 0, 0.9),
+                0 0 0 4px rgba(255, 255, 255, 0.06);
         }
 
         .qr-text {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.12em;
+            font-weight: 600;
         }
 
         .footer {
@@ -221,6 +289,21 @@
         <p class="tagline">Neurotech &bull; Cybersecurity &bull; Elata</p>
 
         <div class="links-container">
+
+            <!-- Featured Venture -->
+            <div class="section-label">Featured Venture</div>
+            <a href="https://www.elata.bio/" class="link-card featured-card" target="_blank" rel="noopener noreferrer">
+                <div class="featured-main">
+                    <div class="link-content">
+                        <i data-lucide="brain-circuit" class="icon"></i>
+                        <span class="featured-title">Elata Biosciences &mdash; Head of Neurotechnology</span>
+                    </div>
+                    <p class="featured-subtitle">Building the coordination layer for the internet of brains.</p>
+                    <span class="featured-cta">Explore Elata</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
             <!-- Writing Section -->
             <div class="section-label">Newsletter</div>
             <a href="https://drrezkhan.substack.com" class="link-card">
