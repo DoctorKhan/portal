@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Rez Khan | Practice</title>
+    <title>Dr. Rez Khan | Professional</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <!-- Lucide Icons for a professional touch -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -388,26 +388,55 @@
         <p class="tagline">Neurotech &bull; Cybersecurity &bull; Elata</p>
 
         <nav class="route-nav" aria-label="Site sections">
-            <a href="./" class="route-link" data-route="spiritual" data-file-href="./index.html">Practice</a>
-            <a href="./professional/" class="route-link" data-route="professional" data-file-href="./professional/index.html">Professional</a>
-            <a href="./personal/" class="route-link" data-route="personal" data-file-href="./personal/index.html">Personal</a>
+            <a href="../" class="route-link" data-route="spiritual" data-file-href="../index.html">Practice</a>
+            <a href="./" class="route-link" data-route="professional" data-file-href="./index.html">Professional</a>
+            <a href="../personal/" class="route-link" data-route="personal" data-file-href="../personal/index.html">Personal</a>
         </nav>
 
         <div class="links-container">
-            <div class="section-label">Practice / Meditation</div>
-            <a href="https://youtube.com/@Dr.RezKhan" class="link-card">
-                <div class="link-content">
-                    <i data-lucide="sparkles" class="icon icon-yt"></i>
-                    <span>Mindfulness & Flow</span>
+            <div class="section-label">Featured Venture</div>
+            <a href="https://www.elata.bio/" class="link-card featured-card" target="_blank" rel="noopener noreferrer">
+                <div class="featured-main">
+                    <div class="link-content">
+                        <i data-lucide="brain-circuit" class="icon"></i>
+                        <span class="featured-title">Elata Biosciences &mdash; Head of Neurotechnology</span>
+                    </div>
+                    <p class="featured-subtitle">Building the coordination layer for the internet of brains.</p>
+                    <span class="featured-cta">Explore Elata</span>
                 </div>
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
 
-            <div class="section-label">Blog</div>
-            <a href="https://drrezkhan.substack.com" class="link-card">
+            <div class="section-label">Video Channels</div>
+            <a href="https://youtube.com/@DrRezKhanTech" class="link-card">
                 <div class="link-content">
-                    <i data-lucide="book-open" class="icon"></i>
-                    <span>The Khan Dispatch</span>
+                    <i data-lucide="cpu" class="icon icon-yt"></i>
+                    <span>Technical & Neurotech</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <div class="section-label">Professional</div>
+            <a href="https://www.linkedin.com/in/rez-khan/" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="linkedin" class="icon"></i>
+                    <span>LinkedIn Profile</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <a href="https://github.com/DoctorKhan" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="github" class="icon"></i>
+                    <span>GitHub Codebase</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <a href="https://x.com/RezKKhan" class="link-card">
+                <div class="link-content">
+                    <i data-lucide="twitter" class="icon icon-x"></i>
+                    <span>X / Twitter</span>
                 </div>
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
@@ -428,7 +457,7 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // When opened via file://, directory URLs (e.g. .../professional/) may not auto-load index.html.
+        // When opened via file://, directory URLs (e.g. .../personal/) may not auto-load index.html.
         // Rewrite route links to explicit index.html for local file usage.
         if (window.location.protocol === 'file:') {
             document.querySelectorAll('.route-link[data-file-href]').forEach((el) => {
@@ -459,3 +488,4 @@
     </script>
 </body>
 </html>
+
