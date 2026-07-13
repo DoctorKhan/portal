@@ -16,10 +16,7 @@ if (window.location.protocol === 'file:') {
 
 // Highlight active route tab
 const path = window.location.pathname || '';
-const active =
-    path.includes('/professional') ? 'professional' :
-    path.includes('/personal') ? 'personal' :
-    'spiritual';
+const active = path.includes('/personal') ? 'personal' : 'professional';
 
 document.querySelectorAll('.route-link').forEach((el) => {
     el.classList.toggle('active', el.dataset.route === active);
