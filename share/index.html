@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Dr. Rez Khan | Share</title>
-    <meta name="description" content="Share Dr. Rez Khan's portal — AI security consulting and Serenus One.">
+    <meta name="description" content="Open your camera and scan to save dr.rezkhan.net.">
     <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://dr.rezkhan.net/share/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dr.rezkhan.net/share/">
+    <meta property="og:title" content="Dr. Rez Khan | Share">
+    <meta property="og:description" content="Open your camera and scan dr.rezkhan.net.">
+    <meta property="og:image" content="https://dr.rezkhan.net/assets/Rez%20Professional.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../common.css">
-    <style>
-        :root {
-            --accent-color: #38bdf8;
-            --accent-rgb: 56, 189, 248;
-        }
-    </style>
 </head>
-<body>
+<body class="share-page">
+    <div class="page-shell">
     <div class="container">
         <header class="site-header">
             <div class="profile-pic-container">
@@ -36,34 +37,62 @@
             </div>
             <div class="site-identity">
                 <h1>Dr. Rez Khan</h1>
-                <p class="tagline">AI Security &bull; Secure AI Systems &bull; Serenus One</p>
+                <p class="tagline">Share this link</p>
             </div>
         </header>
 
         <nav class="route-nav" aria-label="Site sections">
-            <a href="../" class="route-link" data-route="professional" data-file-href="../index.html">Professional</a>
-            <a href="./" class="route-link active" data-route="share" data-file-href="./index.html">Share</a>
+            <a href="../" class="route-link" data-route="professional" data-file-href="../index.html" aria-label="Links">
+                <i data-lucide="layout-list" class="route-icon" aria-hidden="true"></i>
+                <span class="route-label">Links</span>
+            </a>
+            <a href="./" class="route-link active" data-route="share" data-file-href="./index.html" aria-label="Share">
+                <i data-lucide="qr-code" class="route-icon" aria-hidden="true"></i>
+                <span class="route-label">Share</span>
+            </a>
         </nav>
 
-        <div class="links-container">
-            <div class="share-view">
-                <div class="qr-card">
-                    <img
-                        class="qr-image"
-                        id="qr-image"
-                        src=""
-                        alt="QR code for dr.rezkhan.net"
-                        width="220"
-                        height="220"
-                    >
-                    <p class="qr-label">Scan to share portal</p>
-                </div>
-            </div>
-        </div>
+        <main class="links-container links-container--share" id="main-content">
+            <section class="qr-showcase" aria-labelledby="share-title">
+                <h2 class="share-title" id="share-title">Open camera and scan</h2>
 
-        <div class="footer">&copy; 2026 Dr. Rez Khan</div>
+                <div class="qr-stage">
+                    <div class="qr-mat">
+                        <div id="qr-canvas" class="qr-canvas-host" role="img" aria-label="QR code for dr.rezkhan.net"></div>
+                        <img
+                            class="qr-image qr-image--fallback hidden"
+                            id="qr-image-fallback"
+                            alt="QR code for dr.rezkhan.net"
+                            width="200"
+                            height="200"
+                        >
+                    </div>
+                </div>
+
+                <div class="share-meta">
+                    <button
+                        type="button"
+                        class="share-copy"
+                        data-copy-url="https://dr.rezkhan.net/"
+                        data-copy-label="dr.rezkhan.net"
+                        aria-label="Copy dr.rezkhan.net"
+                    >
+                        <span>dr.rezkhan.net</span>
+                        <i data-lucide="copy" class="share-copy-icon" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 Dr. Rez Khan</p>
+        </footer>
+    </div>
     </div>
 
+    <div class="toast hidden" id="site-toast" role="status" aria-live="polite"></div>
+
+    <script src="https://unpkg.com/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="../common.js"></script>
 </body>

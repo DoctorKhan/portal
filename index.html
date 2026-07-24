@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Dr. Rez Khan | AI Security</title>
-    <meta name="description" content="AI security consulting, threat modeling, red teaming, and governance for teams building with AI.">
+    <meta name="description" content="AI security consulting, threat modeling, and agent security with Serenus One.">
     <meta name="theme-color" content="#020617">
+    <link rel="canonical" href="https://dr.rezkhan.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dr.rezkhan.net/">
+    <meta property="og:title" content="Dr. Rez Khan | AI Security">
+    <meta property="og:description" content="AI security consulting and agent security for teams shipping AI in production.">
+    <meta property="og:image" content="https://dr.rezkhan.net/assets/Rez%20Professional.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <link rel="stylesheet" href="./common.css">
-    <style>
-        :root {
-            --accent-color: #38bdf8;
-            --accent-rgb: 56, 189, 248;
-        }
-    </style>
 </head>
 <body>
+    <div class="page-shell">
     <div class="container">
         <header class="site-header">
             <div class="profile-pic-container">
@@ -39,71 +38,88 @@
             </div>
             <div class="site-identity">
                 <h1>Dr. Rez Khan</h1>
-                <p class="tagline">AI Security &bull; Secure AI Systems &bull; Serenus One</p>
+                <p class="tagline">AI security consulting · Serenus One</p>
             </div>
         </header>
 
         <nav class="route-nav" aria-label="Site sections">
-            <a href="./" class="route-link active" data-route="professional" data-file-href="./index.html">Professional</a>
-            <a href="./share/" class="route-link" data-route="share" data-file-href="./share/index.html">Share</a>
+            <a href="./" class="route-link active" data-route="professional" data-file-href="./index.html" aria-label="Links">
+                <i data-lucide="layout-list" class="route-icon" aria-hidden="true"></i>
+                <span class="route-label">Links</span>
+            </a>
+            <a href="./share/" class="route-link" data-route="share" data-file-href="./share/index.html" aria-label="Share">
+                <i data-lucide="qr-code" class="route-icon" aria-hidden="true"></i>
+                <span class="route-label">Share</span>
+            </a>
         </nav>
 
-        <div class="links-container" id="view-professional">
-            <div class="section-label">AI Security Consulting</div>
-            <p class="section-desc">Threat modeling, red teaming, and security governance for teams building and deploying AI systems.</p>
-            <a href="https://www.linkedin.com/in/rez-khan/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
-                <div class="link-content">
-                    <i data-lucide="shield-check" class="icon"></i>
-                    <span>Book an AI security consultation</span>
-                </div>
-                <i data-lucide="chevron-right" class="chevron"></i>
-            </a>
-            <a href="https://www.tiktok.com/@dr.rez.khan" class="link-card" target="_blank" rel="noopener noreferrer">
-                <div class="link-content">
-                    <i data-lucide="flask-conical" class="icon"></i>
-                    <span>Science TikTok</span>
-                </div>
-                <i data-lucide="chevron-right" class="chevron"></i>
-            </a>
-            <a href="https://github.com/DoctorKhan" class="link-card" target="_blank" rel="noopener noreferrer">
-                <div class="link-content">
-                    <i data-lucide="github" class="icon"></i>
-                    <span>GitHub</span>
-                </div>
-                <i data-lucide="chevron-right" class="chevron"></i>
-            </a>
-            <a href="https://x.com/RezKKhan" class="link-card" target="_blank" rel="noopener noreferrer">
-                <div class="link-content">
-                    <i data-lucide="twitter" class="icon icon-x"></i>
-                    <span>X / Twitter</span>
-                </div>
-                <i data-lucide="chevron-right" class="chevron"></i>
-            </a>
+        <main class="links-container" id="main-content">
+            <section class="link-group">
+                <h2 class="section-label">Consulting</h2>
+                <p class="section-desc">Threat modeling, red teaming, and governance for production AI.</p>
+                <a href="https://www.linkedin.com/in/rez-khan/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <i data-lucide="shield-check" class="icon"></i>
+                        <span>Book a consultation</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="chevron"></i>
+                </a>
+            </section>
 
-            <div class="section-label">Serenus One</div>
-            <p class="section-desc">Agent security for multi-agent systems and production AI toolchains — threat modeling, runtime enforcement, and deterministic authorization controls.</p>
-            <a href="https://serenus.one/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
-                <div class="link-content">
-                    <i data-lucide="shield" class="icon"></i>
-                    <span>Serenus One — agent security</span>
-                </div>
-                <i data-lucide="chevron-right" class="chevron"></i>
-            </a>
+            <section class="link-group">
+                <h2 class="section-label">Serenus One</h2>
+                <p class="section-desc">Agent security for multi-agent systems in production.</p>
+                <a href="https://serenus.one/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <i data-lucide="shield" class="icon"></i>
+                        <span>Serenus One</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="chevron"></i>
+                </a>
+            </section>
 
-            <div class="section-label">Serenus Pulse</div>
-            <p class="section-desc">Privacy-first wellbeing platform — structured daily check-ins, consent-gated context, and steady coaching that respects personal data boundaries.</p>
-            <a href="https://pulse.serenus.one/" class="link-card" target="_blank" rel="noopener noreferrer">
-                <div class="link-content">
-                    <i data-lucide="heart-pulse" class="icon"></i>
-                    <span>Serenus Pulse — wellbeing platform</span>
-                </div>
-                <i data-lucide="chevron-right" class="chevron"></i>
-            </a>
-        </div>
+            <section class="link-group">
+                <h2 class="section-label">Serenus Pulse</h2>
+                <p class="section-desc">Privacy-first wellbeing coaching platform.</p>
+                <a href="https://pulse.serenus.one/" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <i data-lucide="heart-pulse" class="icon"></i>
+                        <span>Serenus Pulse</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="chevron"></i>
+                </a>
+            </section>
 
-        <div class="footer">
-            &copy; 2026 Dr. Rez Khan
-        </div>
+            <section class="link-group">
+                <h2 class="section-label">Social</h2>
+                <a href="https://www.tiktok.com/@dr.rez.khan" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <i data-lucide="flask-conical" class="icon"></i>
+                        <span>Science TikTok</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="chevron"></i>
+                </a>
+                <a href="https://github.com/DoctorKhan" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <i data-lucide="github" class="icon"></i>
+                        <span>GitHub</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="chevron"></i>
+                </a>
+                <a href="https://x.com/RezKKhan" class="link-card" target="_blank" rel="noopener noreferrer">
+                    <div class="link-content">
+                        <i data-lucide="twitter" class="icon icon-x"></i>
+                        <span>X / Twitter</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="chevron"></i>
+                </a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 Dr. Rez Khan</p>
+        </footer>
+    </div>
     </div>
 
     <script src="./common.js"></script>
