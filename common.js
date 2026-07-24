@@ -10,6 +10,12 @@ if (window.lucide) {
 }
 
 const QR_RENDER_SIZE = 512;
+function getStaticQrSrc() {
+    if (window.location.protocol === 'file:') {
+        return new URL('../assets/share-qr.png', window.location.href).href;
+    }
+    return new URL('/assets/share-qr.png', window.location.origin).href;
+}
 
 function fitQrToHost(host) {
     const svg = host.querySelector('svg');
@@ -82,12 +88,12 @@ const qrHost = document.getElementById('qr-canvas');
 const qrFallback = document.getElementById('qr-image-fallback');
 
 function buildQrFallbackSrc(shareUrl, accentHex) {
-    return (
-        'https://api.qrserver.com/v1/create-qr-code/?size=240x240&ecc=H&qzone=2&data=' +
-        encodeURIComponent(shareUrl) +
-        '&color=' + (accentHex || '38bdf8') +
-        '&bgcolor=f8fafc'
-    );
+    return getStaticQrSrc();
+}
+
+function useStaticQrFallback(fallback) {
+    if (!fallback) return;
+    fallback.src = getStaticQrSrc();
 }
 
 if (qrHost) {
@@ -153,17 +159,16 @@ if (qrHost) {
 
         qr.append(qrHost);
         whenQrReady(qrHost, qr);
+
+        const drawing = qr._svgDrawingPromise || qr._canvasDrawingPromise;
+        if (drawing?.catch) {
+            drawing.catch(() => useStaticQrFallback(qrFallback));
+        }
     } else if (qrFallback) {
-        qrFallback.src = buildQrFallbackSrc(shareUrl, accentHex);
-        qrFallback.classList.remove('hidden');
+        useStaticQrFallback(qrFallback);
     }
 } else if (qrFallback) {
-    const shareUrl = window.location.href;
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()
-        || getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
-    const accentHex = accent.startsWith('#') ? accent.slice(1) : accent;
-    qrFallback.src = buildQrFallbackSrc(shareUrl, accentHex);
-    qrFallback.classList.remove('hidden');
+    useStaticQrFallback(qrFallback);
 }
 
 // Legacy img fallback for older markup

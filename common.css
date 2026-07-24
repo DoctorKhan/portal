@@ -172,6 +172,19 @@ h1 {
     color: var(--text-secondary);
 }
 
+.site-bio {
+    display: none;
+    margin-top: 0.375rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    max-width: 22rem;
+}
+
+.site-identity .site-bio {
+    text-wrap: balance;
+}
+
 .route-nav {
     display: flex;
     gap: var(--space-1);
@@ -466,11 +479,16 @@ h1 {
     object-fit: contain;
 }
 
+.qr-canvas-host:not(:empty) + .qr-image--fallback {
+    display: none;
+}
+
 .qr-image--fallback {
     width: 100%;
     height: auto;
     aspect-ratio: 1;
     display: block;
+    object-fit: contain;
     border-radius: calc(var(--radius) - 2px);
 }
 
@@ -637,7 +655,8 @@ h1 {
     }
 
     .section-desc,
-    .share-lede {
+    .share-lede,
+    .site-bio {
         display: block;
     }
 
