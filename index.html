@@ -204,13 +204,6 @@
         const PERSONAL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
         const PERSONAL_BLOB_KEY = 'drrezpersonal:blob';
         const PERSONAL_CACHE_KEY = 'drrezpersonal:cache';
-        const PERSONAL_PASSWORD_SHA256 = '7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed';
-
-        async function sha256Hex(input) {
-            const data = new TextEncoder().encode(input);
-            const hashBuf = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hashBuf)).reduce((s, b) => s + ('0' + b.toString(16)).slice(-2), '');
-        }
 
         async function decryptBlob(blob, password) {
             const salt = Uint8Array.from(atob(blob.salt), c => c.charCodeAt(0));
@@ -278,14 +271,9 @@
             errEl.textContent = '';
             try {
                 const pw = inputEl.value || '';
-                if (await sha256Hex(pw) !== PERSONAL_PASSWORD_SHA256) {
-                    throw new Error('Incorrect password');
-                }
-                if (!localStorage.getItem(PERSONAL_BLOB_KEY)) {
-                    const blobEl = document.querySelector('script#personal-blob');
-                    if (blobEl) {
-                        try { localStorage.setItem(PERSONAL_BLOB_KEY, blobEl.textContent); } catch {}
-                    }
+                const blobEl = document.querySelector('script#personal-blob');
+                if (blobEl) {
+                    try { localStorage.setItem(PERSONAL_BLOB_KEY, blobEl.textContent); } catch {}
                 }
                 const blob = JSON.parse(localStorage.getItem(PERSONAL_BLOB_KEY) || '{}');
                 const html = await decryptBlob(blob, pw);
@@ -294,7 +282,7 @@
                 closePersonalGate();
                 window.location.href = './personal/index.html';
             } catch (err) {
-                errEl.textContent = err.message || 'Incorrect password';
+                errEl.textContent = 'Incorrect password';
                 btn.disabled = false;
                 btn.textContent = 'Unlock';
                 inputEl.focus();
@@ -336,5 +324,6 @@
             }
         })();
     </script>
+<script id="personal-blob" type="application/json">{"salt":"P0OTQOivlBY82zuaMqP/cg==","iv":"bJdCFnAL6wOCPlRS","ct":"VRUJ82MgWxBba6YRriEhKXsFSPfLYJcjeK4+tnxcJerBMP6AeuxYw+660nH9VwlL/Z6n8Yk+s7wvkcAX+1WkWFDP9jc70PI/P4cgBItwRrmR5rgD+WxODRziF+r668Dqi2Bw2607rIN0YWjUMKlJYTU1CJn/dqW3Pspv"}</script>
 </body>
 </html>
