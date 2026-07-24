@@ -24,14 +24,14 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            min-height: 340px;
+            min-height: 320px;
             text-align: center;
-            padding: 24px;
+            padding: 22px;
         }
 
         .password-gate label {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .password-gate input[type="password"] {
@@ -88,20 +88,23 @@
             <a href="./" class="route-link" data-route="personal" data-file-href="./index.html">Personal</a>
         </nav>
 
-        <div class="links-container hidden" id="personal-content">
-            <div class="password-gate" id="personal-password-gate">
-                <label for="personal-password-input">Enter password to view personal links</label>
-                <input type="password" id="personal-password-input" placeholder="Password" autocomplete="current-password">
-                <div class="password-error" id="personal-password-error"></div>
-                <button id="personal-password-submit">Unlock</button>
-            </div>
+        <div class="password-gate" id="personal-password-gate">
+            <label for="personal-password-input">Enter password to view personal links</label>
+            <input type="password" id="personal-password-input" placeholder="Password" autocomplete="current-password">
+            <div class="password-error" id="personal-password-error"></div>
+            <button id="personal-password-submit">Unlock</button>
         </div>
+
+        <div class="links-container hidden" id="personal-content"></div>
     </div>
-    <script>window.__PERSONAL_BLOB = {"salt":"UE+meRNQr7ZmkrSsfALwpQ==","iv":"nm954auAPpa54IfQ","ct":"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"};</script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.__PERSONAL_BLOB = {"salt":"UE+meRNQr7ZmkrSsfALwpQ==","iv":"nm954auAPpa54IfQ","ct":"C4zRRyx0GG2PrTgCzlWHMWsi+PSfeWFIeL9RMO1sAM4qgRnQm6gRPtjjzOjRgzMgZVZmrtVao1bEwzyyr9E9TgnnGX73QX810RBhyAKRMus9mhaK4EEXErFm5wC6OzzgHR+vPA8gJrDnn4Yz2fLIo3P90Wg1dI8/IUUxrvz7QuL9xA+BmC3leYV0MpClwL8krr/Zvcm2I5UnzuTa1uMR91ZwWerSXbhYtu76WPWNUpA/HG1dvJZ6rw0kTxd/MwcVcGP1nTtTxZV7hqpbLG2x2RsBMP26NH/+d6pEn/4fDaT9m05MFjFYVdrKVmVU9QU19LYiUWosiNlIeKSyrHo6fZFiluYT820KFqTIMAf5XzqI+h2Y+zkKyH/9aqamJRmM9dVICy77l4+tTswBw6/boGpGGpMKv6v8WT6oCM0Zj1MyEWNJ8FXBGUltRmYiUBbO11qd8dNQhYD8+hBBWyws602Jk0QwUop7pR+TNPYZsMB2nft7Q5ADTa19Wy94M/LnERrXZ1LFSSUVfxOd/haC08KonUkJ4lQUQt5bAIQVmxFcZ3OW37G+mUVD3sB2KwDksdINUkSKlnnvojOom5yQ0zKsubWbCma55x1qQndWrPYuedX+tH6tRLeOk958GPLGaujItYCCormPGeJBfe7erUKuQI/qHfxAJOCEYAFQPrB2w9yvDK6agK05NJO8qWI9Ff8Gte+JVZmfndEMjWzpqmUdNmkLN9mlJyt7iK3+MlJUkN324diwFspGAIktI2YIWYGkCKdIcrdUGAJQuitBD5JXKd0Bnoi0YWephD9o/GQ1I4CIBsCIKyr8E8UMazG2VcRCHBiSfDJTa7q7frVhZELYrjgUMMxno08OSlVVS5a1KN/+5BgSD2CAjW3b0DIZeoq8Z3PI7bNutEzvEX5JKJBkoNfbWXJoQOyUNKfWYNky2aRsbmCtLVkX+lQphAQHCGBIXUw5+L1RIujv71CZzI/GAt+Y1D2eE9Cs+GlujSWFWSnEav27TlzEBEbOcrSLUgNC5fhmH88r7GDwdmvQa/oXEDnU2gEYBLsPXc7x7pnvlqwOPyv2MRZ5V4EB6WSi3eZIWc23zFXsX7X+aC+ZQ+DMRvjQLgjgMmjKUsr8Tlz51jP66yE2SKCTxAEfhLBEV5cdAXueOeUDY4oOeVm2J4TVX7Xe/rnY0z2kUW+4gbnX4CzMTrX+gBlgba9/pjJP6l8eYFiv0="};</script>
     <script>
         const PERSONAL_SESSION_KEY = 'drrezpersonal:session';
         const PERSONAL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
-        const SHA256_HEX = '7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed';
+        const PERSONAL_CACHE_KEY = 'drrezpersonal:cache';
+        const SHA256_HEX = '4d33b5fc5bc65ee0f8f965097b80cbdd3bf9fcddbfff000d1be7ce0778e5c0a5';
 
         async function sha256Hex(str) {
             const buf = await crypto.subtle.digest('SHA-256', (new TextEncoder()).encode(str));
@@ -112,8 +115,14 @@
             const salt = Uint8Array.from(atob(blob.salt), c => c.charCodeAt(0));
             const iv = Uint8Array.from(atob(blob.iv), c => c.charCodeAt(0));
             const ct = Uint8Array.from(atob(blob.ct), c => c.charCodeAt(0));
-            const key = await crypto.subtle.importKey('raw', await crypto.subtle.digest('SHA-256', new Uint8Array(salt)), 'AES-GCM', false, ['decrypt']);
-            const aesKey = await crypto.subtle.importKey('raw', key, { name: 'AES-GCM' }, false, ['decrypt']);
+            const baseKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+            const aesKey = await crypto.subtle.deriveKey(
+                { name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256' },
+                baseKey,
+                { name: 'AES-GCM', length: 256 },
+                false,
+                ['decrypt']
+            );
             const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, ct);
             return new TextDecoder().decode(dec);
         }
@@ -128,6 +137,14 @@
             localStorage.setItem(PERSONAL_SESSION_KEY, JSON.stringify({ expiresAt: Date.now() + PERSONAL_SESSION_TTL_MS }));
         }
 
+        function showPersonalContent(html) {
+            const gate = document.getElementById('personal-password-gate');
+            const container = document.getElementById('personal-content');
+            if (gate) gate.classList.add('hidden');
+            container.insertAdjacentHTML('beforeend', html.trim());
+            if (window.lucide) lucide.createIcons();
+        }
+
         async function unlockPersonal() {
             const input = document.getElementById('personal-password-input');
             const err = document.getElementById('personal-password-error');
@@ -139,8 +156,10 @@
                 if ((await sha256Hex(pw)) !== SHA256_HEX) {
                     throw new Error('Incorrect password');
                 }
+                const html = await decryptPersonal(window.__PERSONAL_BLOB, pw);
+                sessionStorage.setItem(PERSONAL_CACHE_KEY, html);
                 setPersonalSession();
-                window.location.reload();
+                showPersonalContent(html);
             } catch (e) {
                 err.textContent = e.message;
                 submit.disabled = false;
@@ -157,15 +176,12 @@
                 document.getElementById('personal-password-error').textContent = 'Personal content is unavailable.';
                 return;
             }
-            if (personalSessionValid()) {
-                try {
-                    const html = await decryptPersonal(window.__PERSONAL_BLOB, '');
-                    document.getElementById('personal-password-gate').classList.add('hidden');
-                    container.insertAdjacentHTML('beforeend', html.trim());
-                    if (window.lucide) lucide.createIcons();
-                } catch (e) {
-                    document.getElementById('personal-password-error').textContent = 'Decryption failed.';
-                }
+            if (!personalSessionValid()) {
+                return;
+            }
+            const cached = sessionStorage.getItem(PERSONAL_CACHE_KEY);
+            if (cached) {
+                showPersonalContent(cached);
             }
         })();
     </script>
