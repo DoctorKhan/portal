@@ -14,10 +14,94 @@
 
     <link rel="stylesheet" href="./common.css">
     <style>
-        /* Route-specific variables (override as you like per tab) */
         :root {
             --accent-color: #38bdf8;
             --accent-rgb: 56, 189, 248;
+        }
+
+        .password-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.82);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .password-overlay.active {
+            display: flex;
+        }
+
+        .password-modal {
+            background: rgba(15, 23, 42, 0.97);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 24px;
+            padding: 32px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .password-modal h2 {
+            font-family: "Space Grotesk", "IBM Plex Sans", sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .password-modal p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .password-modal input[type="password"] {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            width: 260px;
+            max-width: 100%;
+        }
+
+        .password-modal input[type="password"]:focus {
+            border-color: var(--accent-color);
+        }
+
+        .password-modal button[type="submit"] {
+            background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.95), rgba(var(--accent-rgb), 0.6));
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            color: #021018;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+        }
+
+        .password-modal .password-cancel {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .password-error {
+            color: #ef4444;
+            font-size: 0.8rem;
+            min-height: 1rem;
         }
     </style>
 </head>
@@ -73,11 +157,22 @@
 
             <!-- Serenus One -->
             <div class="section-label">Serenus One</div>
-            <p class="section-desc">A wellbeing platform I design and build &mdash; camera-based biometric measurement and consent-gated data sharing today, with AI coaching in progress &mdash; applying privacy, safety, and responsible AI principles in practice.</p>
-            <a href="https://serenus.one/pulse" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
+            <p class="section-desc">Agent security for multi-agent systems and production AI toolchains — threat modeling, runtime enforcement, and deterministic authorization controls.</p>
+            <a href="https://serenus.one/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
                 <div class="link-content">
-                    <i data-lucide="heart-handshake" class="icon"></i>
-                    <span>Serenus One &mdash; wellbeing platform</span>
+                    <i data-lucide="shield" class="icon"></i>
+                    <span>Serenus One — agent security</span>
+                </div>
+                <i data-lucide="chevron-right" class="chevron"></i>
+            </a>
+
+            <!-- Serenus Pulse -->
+            <div class="section-label">Serenus Pulse</div>
+            <p class="section-desc">Privacy-first wellbeing platform — structured daily check-ins, consent-gated context, and steady coaching that respects personal data boundaries.</p>
+            <a href="https://pulse.serenus.one/" class="link-card" target="_blank" rel="noopener noreferrer">
+                <div class="link-content">
+                    <i data-lucide="heart-pulse" class="icon"></i>
+                    <span>Serenus Pulse — wellbeing platform</span>
                 </div>
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
@@ -99,6 +194,127 @@
         </div>
     </div>
 
+    <div class="password-overlay" id="personal-password-overlay" role="dialog" aria-modal="true" aria-labelledby="personal-password-title">
+        <div class="password-modal">
+            <h2 id="personal-password-title">Personal page</h2>
+            <p>Enter the password to unlock the personal tab.</p>
+            <form id="personal-password-form">
+                <input type="password" id="personal-password-input" autocomplete="current-password" placeholder="Password" required>
+                <div class="password-error" id="personal-password-error" aria-live="polite"></div>
+                <button type="submit">Unlock</button>
+            </form>
+            <button class="password-cancel" id="personal-password-cancel" type="button">Cancel</button>
+        </div>
+    </div>
+
     <script src="./common.js"></script>
+    <script>
+        const PERSONAL_SESSION_KEY = 'drrezpersonal:session';
+        const PERSONAL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+
+        async function sha256Hex(input) {
+            const data = new TextEncoder().encode(input);
+            const hashBuf = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hashBuf)).reduce((s, b) => s + ('0' + b.toString(16)).slice(-2), '');
+        }
+
+        async function decryptBlob(blob, password) {
+            const salt = Uint8Array.from(atob(blob.salt), c => c.charCodeAt(0));
+            const iv = Uint8Array.from(atob(blob.iv), c => c.charCodeAt(0));
+            const ct = Uint8Array.from(atob(blob.ct), c => c.charCodeAt(0));
+            const baseKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+            const aesKey = await crypto.subtle.deriveKey(
+                { name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256' },
+                baseKey,
+                { name: 'AES-GCM', length: 256 },
+                false,
+                ['decrypt']
+            );
+            const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, ct);
+            return new TextDecoder().decode(dec);
+        }
+
+        function personalSessionValid() {
+            const raw = localStorage.getItem(PERSONAL_SESSION_KEY);
+            if (!raw) return false;
+            try {
+                const obj = JSON.parse(raw);
+                return obj.expiresAt ? obj.expiresAt > Date.now() : false;
+            } catch {
+                return false;
+            }
+        }
+
+        function setPersonalSession() {
+            localStorage.setItem(PERSONAL_SESSION_KEY, JSON.stringify({ expiresAt: Date.now() + PERSONAL_SESSION_TTL_MS }));
+        }
+
+        function closePersonalGate() {
+            const overlay = document.getElementById('personal-password-overlay');
+            if (overlay) overlay.classList.remove('active');
+            const form = document.getElementById('personal-password-form');
+            if (form) form.reset();
+            const err = document.getElementById('personal-password-error');
+            if (err) err.textContent = '';
+        }
+
+        function openPersonalGate() {
+            const overlay = document.getElementById('personal-password-overlay');
+            if (overlay) {
+                overlay.classList.add('active');
+                setTimeout(() => {
+                    const input = document.getElementById('personal-password-input');
+                    if (input) input.focus();
+                }, 10);
+            }
+        }
+
+        document.getElementById('personal-password-cancel').addEventListener('click', closePersonalGate);
+        document.getElementById('personal-password-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'personal-password-overlay') closePersonalGate();
+        });
+
+        document.getElementById('personal-password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const inputEl = document.getElementById('personal-password-input');
+            const errEl = document.getElementById('personal-password-error');
+            const btn = document.querySelector('#personal-password-form button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Checking...';
+            errEl.textContent = '';
+            try {
+                const pw = inputEl.value || '';
+                if (await sha256Hex(pw) !== '7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed') {
+                    throw new Error('Incorrect password');
+                }
+                setPersonalSession();
+                closePersonalGate();
+                window.location.href = './personal/index.html';
+            } catch (err) {
+                errEl.textContent = err.message || 'Incorrect password';
+                btn.disabled = false;
+                btn.textContent = 'Unlock';
+                inputEl.focus();
+            }
+        });
+
+        document.querySelectorAll('.route-link').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                if (!el.dataset.route || el.dataset.route !== 'personal') return;
+                if (personalSessionValid()) return;
+                e.preventDefault();
+                openPersonalGate();
+            });
+        });
+
+        document.querySelectorAll('.route-link').forEach((el) => {
+            el.addEventListener('click', async (e) => {
+                if (!el.dataset.route || el.dataset.route !== 'personal') return;
+                if (personalSessionValid()) return;
+                e.preventDefault();
+                openPersonalGate();
+            });
+        });
+    </script>
 </body>
 </html>
