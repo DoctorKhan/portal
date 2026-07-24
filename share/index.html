@@ -4,73 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Rez Khan | Share</title>
+    <meta name="description" content="Share Dr. Rez Khan's portal — AI security consulting and Serenus One.">
+    <meta name="theme-color" content="#020617">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../common.css">
     <style>
         :root {
             --accent-color: #38bdf8;
             --accent-rgb: 56, 189, 248;
         }
-        .share-view {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            padding: 6px 2px 18px;
-        }
-        .qr-card {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            border-radius: 22px;
-            background:
-                radial-gradient(circle at 50% 0%, rgba(var(--accent-rgb), 0.22), transparent 60%),
-                linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.9));
-            border: 1px solid rgba(var(--accent-rgb), 0.35);
-            box-shadow:
-                0 20px 40px -30px rgba(var(--accent-rgb), 0.8),
-                inset 0 1px 0 rgba(255, 255, 255, 0.06);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
-        .qr-image {
-            width: min(74vw, 214px);
-            height: auto;
-            padding: 11px;
-            background: #ffffff;
-            border: 1px solid rgba(203, 213, 225, 0.8);
-            border-radius: 20px;
-            box-shadow:
-                0 14px 24px -16px rgba(0, 0, 0, 0.9),
-                0 0 0 4px rgba(255, 255, 255, 0.06);
-        }
-        .qr-label {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-weight: 600;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="profile-pic-container">
-            <img src="https://github.com/DoctorKhan.png" alt="Dr. Rez Khan" class="profile-pic" onerror="this.style.display='none'">
-            <div class="profile-pic-fallback">RK</div>
-        </div>
-        <h1>Dr. Rez Khan</h1>
-        <p class="tagline">AI Security &bull; Secure AI Systems &bull; Serenus One</p>
+        <header class="site-header">
+            <div class="profile-pic-container">
+                <img
+                    src="../assets/Rez%20Professional.jpeg"
+                    alt="Dr. Rez Khan"
+                    class="profile-pic"
+                    width="132"
+                    height="132"
+                    decoding="async"
+                    fetchpriority="high"
+                    onerror="this.style.display='none'"
+                >
+                <div class="profile-pic-fallback" aria-hidden="true">RK</div>
+            </div>
+            <div class="site-identity">
+                <h1>Dr. Rez Khan</h1>
+                <p class="tagline">AI Security &bull; Secure AI Systems &bull; Serenus One</p>
+            </div>
+        </header>
 
         <nav class="route-nav" aria-label="Site sections">
-            <a href="../" class="route-link" data-route="professional">Professional</a>
-            <a href="../personal/" class="route-link" data-route="personal">Personal</a>
-            <a href="./" class="route-link active" data-route="share">Share</a>
+            <a href="../" class="route-link" data-route="professional" data-file-href="../index.html">Professional</a>
+            <a href="./" class="route-link active" data-route="share" data-file-href="./index.html">Share</a>
         </nav>
 
         <div class="links-container">
@@ -79,29 +51,20 @@
                     <img
                         class="qr-image"
                         id="qr-image"
-                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dr.rezkhan.net/&color=38bdf8&bgcolor=020617"
-                        alt="QR Code for Dr. Rez Khan portal"
+                        src=""
+                        alt="QR code for dr.rezkhan.net"
+                        width="220"
+                        height="220"
                     >
                     <p class="qr-label">Scan to share portal</p>
                 </div>
             </div>
         </div>
 
-        <div class="footer">&copy; 2024 Dr. Rez Khan</div>
+        <div class="footer">&copy; 2026 Dr. Rez Khan</div>
     </div>
 
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        const qrImg = document.getElementById('qr-image');
-        if (qrImg) {
-            const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
-            const accentHex = accent.startsWith('#') ? accent.slice(1) : accent;
-            qrImg.src =
-                'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' +
-                encodeURIComponent('https://dr.rezkhan.net/') +
-                '&color=' + (accentHex || '38bdf8') +
-                '&bgcolor=020617';
-        }
-    </script>
+    <script src="../common.js"></script>
 </body>
 </html>
