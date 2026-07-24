@@ -103,6 +103,7 @@
             font-size: 0.8rem;
             min-height: 1rem;
         }
+
     </style>
 </head>
 <body>
@@ -120,10 +121,10 @@
         <nav class="route-nav" aria-label="Site sections">
             <a href="./" class="route-link" data-route="professional" data-file-href="./index.html">Professional</a>
             <a href="./personal/" class="route-link" data-route="personal" data-file-href="./personal/index.html">Personal</a>
+            <a href="./share/" class="route-link" data-route="share" data-file-href="./share/index.html">Share</a>
         </nav>
 
-        <div class="links-container">
-            <!-- AI Security Consulting -->
+        <div class="links-container" id="view-professional">
             <div class="section-label">AI Security Consulting</div>
             <p class="section-desc">Threat modeling, red teaming, and security governance for teams building and deploying AI systems.</p>
             <a href="https://www.linkedin.com/in/rez-khan/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
@@ -155,7 +156,6 @@
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
 
-            <!-- Serenus One -->
             <div class="section-label">Serenus One</div>
             <p class="section-desc">Agent security for multi-agent systems and production AI toolchains — threat modeling, runtime enforcement, and deterministic authorization controls.</p>
             <a href="https://serenus.one/" class="link-card hero-card" target="_blank" rel="noopener noreferrer">
@@ -166,7 +166,6 @@
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
 
-            <!-- Serenus Pulse -->
             <div class="section-label">Serenus Pulse</div>
             <p class="section-desc">Privacy-first wellbeing platform — structured daily check-ins, consent-gated context, and steady coaching that respects personal data boundaries.</p>
             <a href="https://pulse.serenus.one/" class="link-card" target="_blank" rel="noopener noreferrer">
@@ -177,17 +176,8 @@
                 <i data-lucide="chevron-right" class="chevron"></i>
             </a>
         </div>
-
-        <!-- QR Code Sharing Section -->
-        <div class="qr-section">
-            <img
-                id="qr-image"
-                class="qr-code"
-                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dr.rezkhan.net/&color=38bdf8&bgcolor=020617"
-                alt="QR Code for Dr. Rez Khan portal"
-            >
-            <p class="qr-text">Scan to share portal</p>
-        </div>
+        <div class="links-container hidden" id="view-personal"></div>
+        <div class="links-container hidden" id="view-share"></div>
 
         <div class="footer">
             &copy; 2024 Dr. Rez Khan
@@ -207,10 +197,14 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="./common.js"></script>
     <script>
         const PERSONAL_SESSION_KEY = 'drrezpersonal:session';
         const PERSONAL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+        const PERSONAL_BLOB_KEY = 'drrezpersonal:blob';
+        const PERSONAL_CACHE_KEY = 'drrezpersonal:cache';
+        const PERSONAL_PASSWORD_SHA256 = '7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed';
 
         async function sha256Hex(input) {
             const data = new TextEncoder().encode(input);
@@ -284,9 +278,18 @@
             errEl.textContent = '';
             try {
                 const pw = inputEl.value || '';
-                if (await sha256Hex(pw) !== '7692c3ad3540bb803c020b3aee66cd8887123234ea0c6e7143c0add73ff431ed') {
+                if (await sha256Hex(pw) !== PERSONAL_PASSWORD_SHA256) {
                     throw new Error('Incorrect password');
                 }
+                if (!localStorage.getItem(PERSONAL_BLOB_KEY)) {
+                    const blobEl = document.querySelector('script#personal-blob');
+                    if (blobEl) {
+                        try { localStorage.setItem(PERSONAL_BLOB_KEY, blobEl.textContent); } catch {}
+                    }
+                }
+                const blob = JSON.parse(localStorage.getItem(PERSONAL_BLOB_KEY) || '{}');
+                const html = await decryptBlob(blob, pw);
+                sessionStorage.setItem(PERSONAL_CACHE_KEY, html);
                 setPersonalSession();
                 closePersonalGate();
                 window.location.href = './personal/index.html';
@@ -298,23 +301,40 @@
             }
         });
 
-        document.querySelectorAll('.route-link').forEach((el) => {
-            el.addEventListener('click', (e) => {
-                if (!el.dataset.route || el.dataset.route !== 'personal') return;
-                if (personalSessionValid()) return;
-                e.preventDefault();
-                openPersonalGate();
-            });
-        });
+        function renderPersonalView(html) {
+            const target = document.getElementById('view-personal');
+            if (!target) return;
+            target.classList.remove('hidden');
+            target.classList.add('show');
+            target.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+        }
 
         document.querySelectorAll('.route-link').forEach((el) => {
             el.addEventListener('click', async (e) => {
-                if (!el.dataset.route || el.dataset.route !== 'personal') return;
-                if (personalSessionValid()) return;
-                e.preventDefault();
-                openPersonalGate();
+                const route = el.dataset.route;
+                if (route !== 'personal') return;
+                if (!personalSessionValid()) {
+                    e.preventDefault();
+                    openPersonalGate();
+                    return;
+                }
+                const cached = sessionStorage.getItem(PERSONAL_CACHE_KEY);
+                if (cached) {
+                    renderPersonalView(cached);
+                }
             });
         });
+
+        (function initPersonalBlob() {
+            const blobEl = document.querySelector('script#personal-blob');
+            if (!blobEl) return;
+            try {
+                localStorage.setItem(PERSONAL_BLOB_KEY, blobEl.textContent);
+            } catch {
+                // storage unavailable
+            }
+        })();
     </script>
 </body>
 </html>

@@ -38,7 +38,9 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding: clamp(28px, 7vh, 62px) 18px 40px;
+    min-height: 100dvh;
+    padding: clamp(20px, 6.5vh, 56px) clamp(16px, 3.4vw, 22px) clamp(24px, 4vh, 40px);
+    overflow-x: hidden;
 }
 
 @keyframes fadeIn {
