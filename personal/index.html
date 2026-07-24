@@ -1,189 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Rez Khan | Personal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <link rel="stylesheet" href="../common.css">
-    <style>
-        :root {
-            --accent-color: #38bdf8;
-            --accent-rgb: 56, 189, 248;
-        }
-
-        .password-gate {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            min-height: 320px;
-            text-align: center;
-            padding: 22px;
-        }
-
-        .password-gate label {
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-        }
-
-        .password-gate input[type="password"] {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px 14px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            width: 260px;
-            max-width: 100%;
-        }
-
-        .password-gate input[type="password"]:focus {
-            border-color: var(--accent-color);
-        }
-
-        .password-gate button {
-            background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.95), rgba(var(--accent-rgb), 0.6));
-            border: none;
-            border-radius: 12px;
-            padding: 12px 18px;
-            color: #021018;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            cursor: pointer;
-        }
-
-        .password-error {
-            color: #ef4444;
-            font-size: 0.8rem;
-            min-height: 1rem;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Rez Khan | Personal</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../common.css" />
+  <style>
+    :root { --accent-color: #38bdf8; --accent-rgb: 56,189,248; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background: #020617; color: #e2e8f0; }
+    .container { max-width: 980px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; text-align: center; }
+    .tagline { text-align: center; color: #94a3b8; margin-top: 6px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-top: 28px; }
+    .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 18px; color: inherit; text-decoration: none; }
+    .password-gate {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; min-height: 320px; text-align: center; padding: 22px;
+    }
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Profile Section -->
-        <div class="profile-pic-container">
-            <img src="https://github.com/DoctorKhan.png" alt="Dr. Rez Khan" class="profile-pic" onerror="this.style.display='none'">
-            <div class="profile-pic-fallback">RK</div>
-        </div>
-
-        <h1>Dr. Rez Khan</h1>
-        <p class="tagline">Personal</p>
-
-        <nav class="route-nav" aria-label="Site sections">
-            <a href="../" class="route-link" data-route="professional" data-file-href="../index.html">Professional</a>
-            <a href="./" class="route-link" data-route="personal" data-file-href="./index.html">Personal</a>
-        </nav>
-
-        <div class="password-gate" id="personal-password-gate">
-            <label for="personal-password-input">Enter password to view personal links</label>
-            <input type="password" id="personal-password-input" placeholder="Password" autocomplete="current-password">
-            <div class="password-error" id="personal-password-error"></div>
-            <button id="personal-password-submit">Unlock</button>
-        </div>
-
-        <div class="links-container hidden" id="personal-content"></div>
+  <div class="container">
+    <h1>Dr. Rez Khan</h1>
+    <p class="tagline">Personal</p>
+    <div class="password-gate" id="personal-password-gate">
+      <label for="personal-password-input">Enter password to view personal links</label>
+      <input type="password" id="personal-password-input" placeholder="Password" autocomplete="current-password" />
+      <div class="password-error" id="personal-password-error"></div>
+      <button id="personal-password-submit">Unlock</button>
     </div>
+    <div class="links-container hidden" id="personal-content"></div>
+  </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>window.__PERSONAL_BLOB = {"salt":"UE+meRNQr7ZmkrSsfALwpQ==","iv":"nm954auAPpa54IfQ","ct":"C4zRRyx0GG2PrTgCzlWHMWsi+PSfeWFIeL9RMO1sAM4qgRnQm6gRPtjjzOjRgzMgZVZmrtVao1bEwzyyr9E9TgnnGX73QX810RBhyAKRMus9mhaK4EEXErFm5wC6OzzgHR+vPA8gJrDnn4Yz2fLIo3P90Wg1dI8/IUUxrvz7QuL9xA+BmC3leYV0MpClwL8krr/Zvcm2I5UnzuTa1uMR91ZwWerSXbhYtu76WPWNUpA/HG1dvJZ6rw0kTxd/MwcVcGP1nTtTxZV7hqpbLG2x2RsBMP26NH/+d6pEn/4fDaT9m05MFjFYVdrKVmVU9QU19LYiUWosiNlIeKSyrHo6fZFiluYT820KFqTIMAf5XzqI+h2Y+zkKyH/9aqamJRmM9dVICy77l4+tTswBw6/boGpGGpMKv6v8WT6oCM0Zj1MyEWNJ8FXBGUltRmYiUBbO11qd8dNQhYD8+hBBWyws602Jk0QwUop7pR+TNPYZsMB2nft7Q5ADTa19Wy94M/LnERrXZ1LFSSUVfxOd/haC08KonUkJ4lQUQt5bAIQVmxFcZ3OW37G+mUVD3sB2KwDksdINUkSKlnnvojOom5yQ0zKsubWbCma55x1qQndWrPYuedX+tH6tRLeOk958GPLGaujItYCCormPGeJBfe7erUKuQI/qHfxAJOCEYAFQPrB2w9yvDK6agK05NJO8qWI9Ff8Gte+JVZmfndEMjWzpqmUdNmkLN9mlJyt7iK3+MlJUkN324diwFspGAIktI2YIWYGkCKdIcrdUGAJQuitBD5JXKd0Bnoi0YWephD9o/GQ1I4CIBsCIKyr8E8UMazG2VcRCHBiSfDJTa7q7frVhZELYrjgUMMxno08OSlVVS5a1KN/+5BgSD2CAjW3b0DIZeoq8Z3PI7bNutEzvEX5JKJBkoNfbWXJoQOyUNKfWYNky2aRsbmCtLVkX+lQphAQHCGBIXUw5+L1RIujv71CZzI/GAt+Y1D2eE9Cs+GlujSWFWSnEav27TlzEBEbOcrSLUgNC5fhmH88r7GDwdmvQa/oXEDnU2gEYBLsPXc7x7pnvlqwOPyv2MRZ5V4EB6WSi3eZIWc23zFXsX7X+aC+ZQ+DMRvjQLgjgMmjKUsr8Tlz51jP66yE2SKCTxAEfhLBEV5cdAXueOeUDY4oOeVm2J4TVX7Xe/rnY0z2kUW+4gbnX4CzMTrX+gBlgba9/pjJP6l8eYFiv0="};</script>
-    <script>
-        const PERSONAL_SESSION_KEY = 'drrezpersonal:session';
-        const PERSONAL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
-        const PERSONAL_CACHE_KEY = 'drrezpersonal:cache';
-        const SHA256_HEX = '4d33b5fc5bc65ee0f8f965097b80cbdd3bf9fcddbfff000d1be7ce0778e5c0a5';
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script id="personal-blob" type="application/json">{"salt":"P0OTQOivlBY82zuaMqP/cg==","iv":"bJdCFnAL6wOCPlRS","ct":"VRUJ82MgWxBba6YRriEhKXsFSPfLYJcjeK4+tnxcJerBMP6AeuxYw+660nH9VwlL/Z6n8Yk+s7wvkcAX+1WkWFDP9jc70PI/P4cgBItwRrmR5rgD+WxODRziF+r668Dqi2Bw2607rIN0YWjUMKlJYTU1CJn/dqW3Pspv"}</script>
+  <script>
+    const PERSONAL_SESSION_KEY = 'drrezpersonal:session';
+    const PERSONAL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+    const PERSONAL_CACHE_KEY = 'drrezpersonal:cache';
+    const PERSONAL_BLOB_KEY = 'drrezpersonal:blob';
+    const HAS_PERSONAL_BLOB = !!document.getElementById('personal-blob');
 
-        async function sha256Hex(str) {
-            const buf = await crypto.subtle.digest('SHA-256', (new TextEncoder()).encode(str));
-            return Array.from(new Uint8Array(buf)).reduce((s, b) => s + ('0' + b.toString(16)).slice(-2), '');
-        }
+    function getBlob() {
+      const stored = localStorage.getItem(PERSONAL_BLOB_KEY);
+      if (stored) {
+        try { return JSON.parse(stored); } catch {}
+      }
+      const el = document.getElementById('personal-blob');
+      if (el && el.textContent) {
+        try { localStorage.setItem(PERSONAL_BLOB_KEY, el.textContent); } catch {}
+        try { return JSON.parse(el.textContent); } catch {}
+      }
+      return null;
+    }
 
-        async function decryptPersonal(blob, password) {
-            const salt = Uint8Array.from(atob(blob.salt), c => c.charCodeAt(0));
-            const iv = Uint8Array.from(atob(blob.iv), c => c.charCodeAt(0));
-            const ct = Uint8Array.from(atob(blob.ct), c => c.charCodeAt(0));
-            const baseKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
-            const aesKey = await crypto.subtle.deriveKey(
-                { name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256' },
-                baseKey,
-                { name: 'AES-GCM', length: 256 },
-                false,
-                ['decrypt']
-            );
-            const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, ct);
-            return new TextDecoder().decode(dec);
-        }
+    async function decryptPersonal(blob, password) {
+      const salt = Uint8Array.from(atob(blob.salt), c => c.charCodeAt(0));
+      const iv = Uint8Array.from(atob(blob.iv), c => c.charCodeAt(0));
+      const ct = Uint8Array.from(atob(blob.ct), c => c.charCodeAt(0));
+      const baseKey = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+      const aesKey = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256' },
+        baseKey,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['decrypt']
+      );
+      const dec = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, ct);
+      return new TextDecoder().decode(dec);
+    }
 
-        function personalSessionValid() {
-            const raw = localStorage.getItem(PERSONAL_SESSION_KEY);
-            if (!raw) return false;
-            try { const obj = JSON.parse(raw); return obj.expiresAt > Date.now(); } catch { return false; }
-        }
+    function personalSessionValid() {
+      const raw = localStorage.getItem(PERSONAL_SESSION_KEY);
+      if (!raw) return false;
+      try { const obj = JSON.parse(raw); return obj.expiresAt > Date.now(); } catch { return false; }
+    }
 
-        function setPersonalSession() {
-            localStorage.setItem(PERSONAL_SESSION_KEY, JSON.stringify({ expiresAt: Date.now() + PERSONAL_SESSION_TTL_MS }));
-        }
+    function setPersonalSession() {
+      localStorage.setItem(PERSONAL_SESSION_KEY, JSON.stringify({ expiresAt: Date.now() + PERSONAL_SESSION_TTL_MS }));
+    }
 
-        function showPersonalContent(html) {
-            const gate = document.getElementById('personal-password-gate');
-            const container = document.getElementById('personal-content');
-            if (gate) gate.classList.add('hidden');
-            container.insertAdjacentHTML('beforeend', html.trim());
-            if (window.lucide) lucide.createIcons();
-        }
+    function showPersonalContent(html) {
+      const gate = document.getElementById('personal-password-gate');
+      const container = document.getElementById('personal-content');
+      if (gate) gate.classList.add('hidden');
+      container.insertAdjacentHTML('beforeend', html.trim());
+      if (window.lucide) lucide.createIcons();
+    }
 
-        async function unlockPersonal() {
-            const input = document.getElementById('personal-password-input');
-            const err = document.getElementById('personal-password-error');
-            const submit = document.getElementById('personal-password-submit');
-            submit.disabled = true;
-            submit.textContent = 'Unlocking...';
-            try {
-                const pw = input.value || '';
-                if ((await sha256Hex(pw)) !== SHA256_HEX) {
-                    throw new Error('Incorrect password');
-                }
-                const html = await decryptPersonal(window.__PERSONAL_BLOB, pw);
-                sessionStorage.setItem(PERSONAL_CACHE_KEY, html);
-                setPersonalSession();
-                showPersonalContent(html);
-            } catch (e) {
-                err.textContent = e.message;
-                submit.disabled = false;
-                submit.textContent = 'Unlock';
-                input.focus();
-            }
-        }
+    async function unlockPersonal() {
+      const input = document.getElementById('personal-password-input');
+      const err = document.getElementById('personal-password-error');
+      const submit = document.getElementById('personal-password-submit');
+      submit.disabled = true;
+      submit.textContent = 'Unlocking...';
+      try {
+        const pw = input.value || '';
+        const html = await decryptPersonal(getBlob(), pw);
+        sessionStorage.setItem(PERSONAL_CACHE_KEY, html);
+        setPersonalSession();
+        showPersonalContent(html);
+      } catch (e) {
+        err.textContent = 'Incorrect password';
+        submit.disabled = false;
+        submit.textContent = 'Unlock';
+        input.focus();
+      }
+    }
 
-        document.getElementById('personal-password-submit').addEventListener('click', unlockPersonal);
+    document.getElementById('personal-password-submit').addEventListener('click', unlockPersonal);
+    document.getElementById('personal-password-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') unlockPersonal();
+    });
 
-        (async function init() {
-            const container = document.getElementById('personal-content');
-            if (!window.__PERSONAL_BLOB) {
-                document.getElementById('personal-password-error').textContent = 'Personal content is unavailable.';
-                return;
-            }
-            if (!personalSessionValid()) {
-                return;
-            }
-            const cached = sessionStorage.getItem(PERSONAL_CACHE_KEY);
-            if (cached) {
-                showPersonalContent(cached);
-            }
-        })();
-    </script>
+    (function syncPersonalBlob() {
+      const el = document.getElementById('personal-blob');
+      if (!el || !el.textContent) return;
+      try {
+        localStorage.setItem(PERSONAL_BLOB_KEY, el.textContent);
+      } catch {
+        // storage unavailable
+      }
+    })();
+
+    (async function init() {
+      const container = document.getElementById('personal-content');
+      if (!HAS_PERSONAL_BLOB) {
+        document.getElementById('personal-password-error').textContent = 'Personal content is unavailable.';
+        return;
+      }
+      if (!personalSessionValid()) {
+        return;
+      }
+      const cached = sessionStorage.getItem(PERSONAL_CACHE_KEY);
+      if (cached) {
+        showPersonalContent(cached);
+      }
+    })();
+  </script>
 </body>
 </html>
