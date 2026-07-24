@@ -7,13 +7,54 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="../common.css">
     <style>
         :root {
             --accent-color: #38bdf8;
             --accent-rgb: 56, 189, 248;
+        }
+        .share-view {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 6px 2px 18px;
+        }
+        .qr-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 22px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(var(--accent-rgb), 0.22), transparent 60%),
+                linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(30, 41, 59, 0.9));
+            border: 1px solid rgba(var(--accent-rgb), 0.35);
+            box-shadow:
+                0 20px 40px -30px rgba(var(--accent-rgb), 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .qr-image {
+            width: min(74vw, 214px);
+            height: auto;
+            padding: 11px;
+            background: #ffffff;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            border-radius: 20px;
+            box-shadow:
+                0 14px 24px -16px rgba(0, 0, 0, 0.9),
+                0 0 0 4px rgba(255, 255, 255, 0.06);
+        }
+        .qr-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -27,114 +68,21 @@
         <p class="tagline">AI Security &bull; Secure AI Systems &bull; Serenus One</p>
 
         <nav class="route-nav" aria-label="Site sections">
-            <a href="../" class="route-link" data-route="professional" data-file-href="../index.html">Professional</a>
-            <a href="../personal/" class="route-link" data-route="personal" data-file-href="../personal/index.html">Personal</a>
-            <a href="./" class="route-link active" data-route="share" data-file-href="./index.html">Share</a>
+            <a href="../" class="route-link" data-route="professional">Professional</a>
+            <a href="../personal/" class="route-link" data-route="personal">Personal</a>
+            <a href="./" class="route-link active" data-route="share">Share</a>
         </nav>
 
-        <div class="links-container share-sheet">
-            <div class="share-preview">
-                <img
-                    src="https://github.com/DoctorKhan.png"
-                    alt=""
-                    class="share-preview-thumb"
-                    onerror="this.style.display='none'"
-                >
-                <div class="share-preview-body">
-                    <div class="share-preview-title">Dr. Rez Khan</div>
-                    <div class="share-preview-domain">dr.rezkhan.net</div>
-                    <div class="share-preview-desc">AI Security, Secure AI Systems, and Serenus One — links and contact in one place.</div>
-                </div>
-            </div>
-
-            <div class="share-url-block">
-                <div class="share-section-label">Link</div>
-                <div class="share-url-row">
-                    <input
-                        type="text"
-                        class="share-url-input"
-                        id="share-url-input"
-                        value="https://dr.rezkhan.net/"
-                        readonly
-                        aria-label="Share link"
-                    >
-                    <button type="button" class="share-copy-btn" id="share-copy-btn">
-                        <i data-lucide="copy"></i>
-                        <span data-copy-label>Copy</span>
-                    </button>
-                </div>
-            </div>
-
-            <button type="button" class="share-native-btn" id="share-native-btn">
-                <i data-lucide="share-2"></i>
-                <span>Share link</span>
-            </button>
-
-            <div class="share-destinations">
-                <div class="share-section-label">Send to</div>
-                <div class="share-scroll-row" role="list" aria-label="Share destinations">
-                    <button type="button" class="share-dest" data-share="copy" role="listitem">
-                        <span class="share-dest-icon copy">
-                            <i data-lucide="link-2"></i>
-                        </span>
-                        <span class="share-dest-label">Copy link</span>
-                    </button>
-                    <button type="button" class="share-dest" data-share="messages" role="listitem">
-                        <span class="share-dest-icon messages">
-                            <i data-lucide="message-circle"></i>
-                        </span>
-                        <span class="share-dest-label">Messages</span>
-                    </button>
-                    <button type="button" class="share-dest" data-share="whatsapp" role="listitem">
-                        <span class="share-dest-icon whatsapp" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                                <path d="M12.004 2.003c-5.514 0-9.997 4.483-9.997 9.997 0 1.762.463 3.484 1.345 4.997L2 22l5.233-1.237a9.955 9.955 0 0 0 4.771 1.216h.004c5.514 0 9.997-4.483 9.997-9.997 0-2.686-1.053-5.212-2.963-7.11A9.955 9.955 0 0 0 12.004 2z"/>
-                            </svg>
-                        </span>
-                        <span class="share-dest-label">WhatsApp</span>
-                    </button>
-                    <button type="button" class="share-dest" data-share="telegram" role="listitem">
-                        <span class="share-dest-icon telegram" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path d="M9.417 15.18 9.02 19.5c.467 0 .67-.2.913-.44l2.2-2.11 4.56 3.34c.837.46 1.435.22 1.65-.77l3-14.07h.002c.265-1.23-.44-1.71-1.24-1.42L2.36 9.84c-1.2.47-1.18 1.14-.2 1.44l4.36 1.36 10.14-6.4c.477-.3.913-.13.555.17"/>
-                            </svg>
-                        </span>
-                        <span class="share-dest-label">Telegram</span>
-                    </button>
-                    <button type="button" class="share-dest" data-share="x" role="listitem">
-                        <span class="share-dest-icon x">
-                            <i data-lucide="twitter"></i>
-                        </span>
-                        <span class="share-dest-label">X</span>
-                    </button>
-                    <button type="button" class="share-dest" data-share="linkedin" role="listitem">
-                        <span class="share-dest-icon linkedin">
-                            <i data-lucide="linkedin"></i>
-                        </span>
-                        <span class="share-dest-label">LinkedIn</span>
-                    </button>
-                    <button type="button" class="share-dest" data-share="email" role="listitem">
-                        <span class="share-dest-icon email">
-                            <i data-lucide="mail"></i>
-                        </span>
-                        <span class="share-dest-label">Email</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="share-divider"></div>
-
-            <div class="share-qr-block">
-                <div class="share-section-label">QR code</div>
-                <div class="share-qr-card">
+        <div class="links-container">
+            <div class="share-view">
+                <div class="qr-card">
                     <img
-                        class="share-qr-image"
+                        class="qr-image"
                         id="qr-image"
-                        src=""
-                        alt="QR code for dr.rezkhan.net"
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dr.rezkhan.net/&color=38bdf8&bgcolor=020617"
+                        alt="QR Code for Dr. Rez Khan portal"
                     >
-                    <p class="share-qr-caption">Scan to open the portal — great for business cards, slides, or in-person sharing.</p>
+                    <p class="qr-label">Scan to share portal</p>
                 </div>
             </div>
         </div>
@@ -142,6 +90,18 @@
         <div class="footer">&copy; 2024 Dr. Rez Khan</div>
     </div>
 
-    <script src="../common.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        const qrImg = document.getElementById('qr-image');
+        if (qrImg) {
+            const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+            const accentHex = accent.startsWith('#') ? accent.slice(1) : accent;
+            qrImg.src =
+                'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' +
+                encodeURIComponent('https://dr.rezkhan.net/') +
+                '&color=' + (accentHex || '38bdf8') +
+                '&bgcolor=020617';
+        }
+    </script>
 </body>
 </html>
