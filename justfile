@@ -1,12 +1,6 @@
 # RezKhan — static link portal for dr.rezkhan.net
 set working-directory := "/Users/khan/Projects/DrRezKhan"
 
-export NODE_OPTIONS := "--experimental-vm-modules"
-
-# Run local unit tests for the personal password gate / decryption flow.
-test:
-	@node --test tests/personal-gate.test.mjs
-
 # Prepare build-only demo artifacts without embedding secrets.
 build-demo command="./scripts/build-demo.sh":
 	@bash {{command}}
