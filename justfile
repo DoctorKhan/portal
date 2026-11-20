@@ -18,8 +18,10 @@ serve port=port:
 		python3 -m http.server {{port}} --bind 127.0.0.1; \
 	fi
 
-# Serve in the background and open in the browser.
-run port=port:
+alias run := preview
+
+# Preview locally: serve in the background and open in the browser ('just stop' to end).
+preview port=port:
 	@if lsof -iTCP:{{port}} -sTCP:LISTEN -P >/dev/null 2>&1; then \
 		echo "Server already running on :{{port}}"; \
 	else \
