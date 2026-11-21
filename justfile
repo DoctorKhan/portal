@@ -76,9 +76,9 @@ check:
 	[ $fail -eq 0 ] && echo "✓ checks passed"
 	exit $fail
 
-# Bump the ?v= cache-buster on common.css/common.js to today's date.
+# Bump the ?v= cache-buster on common.css/common.js to the current date+time.
 bust:
-	@v=$(date +%Y%m%d); sed -i '' -E "s/(common\.(css|js))\?v=[0-9]+/\1?v=$v/g" index.html; echo "Cache-buster set to v=$v"
+	@v=$(date +%Y%m%d%H%M); sed -i '' -E "s/(common\.(css|js))\?v=[0-9]+/\1?v=$v/g" index.html; echo "Cache-buster set to v=$v"
 
 # Check, auto-bust cache if CSS/JS changed, commit tracked changes, and push to main.
 release msg="Update site":
